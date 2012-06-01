@@ -1,0 +1,223 @@
+<%= form_tag promotions_path, :id => "promotionForm" do %>
+  <% unless @promotion.id.blank? %>
+    <h3 align="center"><%= @promotion.name %> Details</h3>
+    <input type="hidden" name="promotion_id" value="<%= @promotion.id %>" />
+    <table border="1" align="center" width="70%" id="promo_details">
+      <tr>
+        <td colspan="2" align="center">
+          <table>
+            <tr>
+              <td>Name</td>
+              <td><%= autocomplete_field :promotion, :name, autocomplete_promotion_name_promotions_path, :id=> "promos"  %></td>
+            </tr>
+            <tr>
+              <td>Start Date :</td><td> <%= text_field :promotion, :start_date, :id => "datepicker_start" %></td>
+              <td>End Date :</td><td> <%= text_field :promotion, :end_date, :id => "datepicker_end" %></td>
+            </tr>
+            <tr>
+              <td>Title</td>
+              <td><%= text_field :promotion, :title %></td>
+            </tr>
+            <tr>
+              <td>Subtitle</td>
+              <td><%= text_field :promotion, :subtitle %></td>
+            </tr>
+            <tr>
+              <td>Description</td>
+              <td><%= text_area :promotion, :description, :cols => 35, :rows => 3 %></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <% business1 = @promotion_businesses ? @promotion_businesses.first.id : nil %>
+          <table>
+            <tr><th colspan="2" align="center"><%= @promotion_businesses.first.name %> Details</th></tr>
+            <tr>
+              <td>Business</td>
+              <td><%= select_tag :business1, options_from_collection_for_select(@businesses, "id", "name", business1), :class => "target" %> |
+                <span style="cursor: pointer; color: blue;" id="add-business" class="add-business">Create</span></td>
+            </tr>
+            <% @product1 = @promotion.products.where(:business_id => business1).first if @promotion %>
+            <% @b1_products = @promotion_businesses.first.products %>
+            <tr>
+              <td>Product</td>
+              <td>
+                <%= select :product1, :id, @b1_products.collect { |p| [p.name, p.id] }, {}, {:class => "fields", :id => "productDropdown1"} %> |
+                <span style="cursor: pointer; color: blue;" id="add-product" class="add-product">Create</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Retail Price</td>
+              <td><%= text_field :product1, :retail_price, :disabled => true, :class => "r_price_value", :id => "r_price_value_1" %></td>
+            </tr>
+            <tr>
+              <td>Discounted Price</td>
+              <td><%= text_field :product1, :discounted_price, :disabled => true, :class => "d_price_value", :id => "d_price_value_1" %></td>
+            </tr>
+          </table>
+        </td>
+        <td align="center">
+          <% business2 = @promotion_businesses ? @promotion_businesses.last.id : nil %>
+          <table>
+            <tr><th colspan="2" align="center"><%= @promotion_businesses.last.name %> Details</th></tr>
+            <tr>
+              <td>Business</td>
+              <td>
+                <%= select_tag :business2, options_from_collection_for_select(@businesses, "id", "name", business2), :class => "target" %> |
+                <span style="cursor: pointer; color: blue;" id="add-business" class="add-business">Create</span></td>
+            </tr>
+            <% @product2 = @promotion.products.where(:business_id => business2).first if @promotion %>
+            <% @b2_products = @promotion_businesses.last.products %>
+            <tr>
+              <td>Product</td>
+              <td>
+                <%= select :product2, :id, @b2_products.collect { |p| [p.name, p.id] }, {}, {:class => "fields", :id => "productDropdown2"} %> |
+                <span style="cursor: pointer; color: blue;" id="add-product"  class="add-product">Create</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Retail Price</td>
+              <td><%= text_field :product2, :retail_price, :disabled => true, :class => "r_price_value", :id => "r_price_value_2" %></td>
+            </tr>
+            <tr>
+              <td>Discounted Price</td>
+              <td><%= text_field :product2, :discounted_price, :disabled => true, :class => "d_price_value", :id => "d_price_value_2" %></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr align="center">
+        <td colspan="2" valign="top">Redemption Details<%= text_area :promotion, :redemption_detail, :cols => 35, :rows => 3,%></td>
+      </tr>
+      <tr>
+        <td colspan="2"><%=submit_tag'Add/Edit'%></td>
+      </tr>
+    </table>
+  <% else %>
+    <h3 align="center">Add New Promotion</h3>
+    <div id="promo_details">
+      <table border="1" align="center" width="70%" id="promo_details">
+        <tr>
+          <td colspan="2" align="center">
+            <table>
+              <tr>
+                <td>Name</td>
+                <td><%= autocomplete_field :promotion, :name, autocomplete_promotion_name_promotions_path, :id=> "promos"  %></td>
+              </tr>
+              <tr>
+                <td>Start Date :</td><td> <%= text_field :promotion, :start_date, :id => "datepicker_start" %></td>
+                <td>End Date :</td><td> <%= text_field :promotion, :end_date, :id => "datepicker_end" %></td>
+              </tr>
+              <tr>
+                <td>Title</td>
+                <td><%= text_field :promotion, :title %></td>
+              </tr>
+              <tr>
+                <td>Subtitle</td>
+                <td><%= text_field :promotion, :subtitle %></td>
+              </tr>
+              <tr>
+                <td>Description</td>
+                <td><%= text_area :promotion, :description, :cols => 35, :rows => 3 %></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <table>
+              <tr><th colspan="2" align="center">Details</th></tr>
+              <tr>
+                <td>Business</td>
+                <td><%= select_tag :business1, options_from_collection_for_select(@businesses, "id", "name"), :prompt => "Select Business", :class => "target" %> |
+                  <span style="cursor: pointer; color: blue;" id="add-business" class="add-business">Create</span></td>
+              </tr>
+              <tr>
+                <td>Product</td>
+                <td>
+                  <select class='fields' id='productDropdown1' name="product1">
+                    <% @products.each do |product|%>
+                      <option class="" value="<%= product.id %>"><%= product.name %></option>
+                    <% end unless @products.blank? %>
+                  </select> |
+                  <span style="cursor: pointer; color: blue;" id="add-product" class="add-product">Create</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Retail Price</td>
+                <td><%= text_field :product1, :retail_price, :disabled => true, :class => "r_price_value", :id => "r_price_value_1" %></td>
+              </tr>
+              <tr>
+                <td>Discounted Price</td>
+                <td><%= text_field :product1, :discounted_price, :disabled => true, :class => "d_price_value", :id => "d_price_value_1" %></td>
+              </tr>
+            </table>
+          </td>
+          <td align="center">
+            <table>
+              <tr><th colspan="2" align="center">Details</th></tr>
+              <tr>
+                <td>Business</td>
+                <td>
+                  <%= select_tag :business2, options_from_collection_for_select(@businesses, "id", "name"), :prompt => "Select Business", :class => "target" %> |
+                  <span style="cursor: pointer; color: blue;" id="add-business" class="add-business">Create</span></td>
+              </tr>
+              <tr>
+                <td>Product</td>
+                <td><select class='fields' id='productDropdown2' name="product2">
+                    <% @products.each do |product|%>
+                      <option class="" value="<%= product.id %>"><%= product.name %></option>
+                    <% end unless @products.blank? %>
+                  </select> |
+                  <span style="cursor: pointer; color: blue;" id="add-product"  class="add-product">Create</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Retail Price</td>
+                <td><%= text_field :product2, :retail_price, :disabled => true, :class => "r_price_value", :id => "r_price_value_2" %></td>
+              </tr>
+              <tr>
+                <td>Discounted Price</td>
+                <td><%= text_field :product2, :discounted_price, :disabled => true, :class => "d_price_value", :id => "d_price_value_2" %></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr align="center">
+          <td colspan="2" valign="top">Redemption Details<%= text_area :promotion, :redemption_detail, :cols => 35, :rows => 3,%></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center"><%=submit_tag'Add/Edit'%></td>
+        </tr>
+      </table>
+    </div>
+  <% end %>
+<% end %>
+
+<div id="business-form" title="Add New Business">
+  <form>
+    <fieldset>
+      <label for="b_name">Enter Name</label>
+      <input type="text" name="b_name" id="b_name" value="" class="text ui-widget-content ui-corner-all" />
+      <p id="valid-prog"></p>
+    </fieldset>
+  </form>
+</div>
+<div id="product-form" title="Add New Product">
+  <form>
+    <fieldset>
+      <label for="p_name">Enter Name</label>
+      <input type="text" name="p_name" id="p_name" value="" class="text ui-widget-content ui-corner-all" /><br />
+      <label for="pb_name">Select Product</label>
+      <%=select_tag :business, options_from_collection_for_select(@businesses, "id", "name"), :prompt => "Select Business",:id => "pb_name", :class=>"text ui-widget-content ui-corner-all"%><br />
+      <!-- <input type="text" name="pb_name" id="pb_name" value="" class="text ui-widget-content ui-corner-all" /> -->
+      <label for="b_name">Retail Price</label>
+      <input type="text" name="r_price" id="r_price" value="" class="text ui-widget-content ui-corner-all" /><br />
+      <label for="b_name">Discounted Price</label>
+      <input type="text" name="d_price" id="d_price" value="" class="text ui-widget-content ui-corner-all" />
+      <p id="valid-prog"></p>
+    </fieldset>
+  </form>
+</div>

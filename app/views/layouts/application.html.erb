@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TestApp</title>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= stylesheet_link_tag "jquery-ui.css","jquery-ui-timepicker-addon.css" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <!--<link rel="stylesheet" href="/stylesheets/jquery-ui.css" />   -->
+    <%= javascript_include_tag "jquery.min", "jquery-ui.min","autocomplete-rails"%>
+  </head>
+  <body>
+    <p align="center"><%= flash[:notice] || flash[:error] %></p>
+    <%= yield %>
+  </body>
+</html>

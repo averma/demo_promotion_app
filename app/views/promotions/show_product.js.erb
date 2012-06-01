@@ -1,0 +1,5 @@
+<% if params[:stag_id] == "business1" %>
+  $('#productDropdown1').html("<%= escape_javascript( render(:partial => 'product_select'))%>");
+<%  elsif(params[:stag_id] == "business2") %>
+  $('#productDropdown2').html("<%= escape_javascript( render(:partial => 'product_select'))%>");
+<% end %>

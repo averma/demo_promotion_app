@@ -1,0 +1,5 @@
+<% pid = @selected_product ? @selected_product.id : nil %>
+<option class="" value="">--- Select product ---</option>
+<% @products.each do |product|%>
+<option class="" value="<%= product.id %>" <% if product.id == pid %>selected<% end %>><%= product.name %></option>
+<% end unless @products.blank? %>

@@ -1,0 +1,14 @@
+.fields{
+    -moz-border-radius:5px 5px 5px 5px;
+    width:192px;
+    height:25px;
+    background: #fff;
+    border:1px solid #333;
+}
+.target{
+    -moz-border-radius:5px 5px 5px 5px;
+    width:192px;
+    height:25px;
+    background: #fff;
+    border:1px solid #333;
+}
